@@ -125,15 +125,6 @@ function Index() {
               </div>
             </div>
 
-            <div className="mt-20">
-              <img
-                src={heroChrome}
-                alt="Chrome nail finish, signature look"
-                width={1440}
-                height={700}
-                className="aspect-[21/9] w-full rounded-xl object-cover ring-1 ring-black/5"
-              />
-            </div>
           </div>
         </section>
 
