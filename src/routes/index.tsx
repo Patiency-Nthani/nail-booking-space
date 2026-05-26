@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import heroChrome from "@/assets/hero-chrome.jpg";
+
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
@@ -18,9 +18,9 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:title", content: "PTheNailTech's Space" },
       { property: "og:description", content: "Editorial nail studio. Structured gel, Gel-X, custom art. Book online." },
-      { property: "og:image", content: heroChrome },
+      { property: "og:image", content: gallery1 },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: heroChrome },
+      { name: "twitter:image", content: gallery1 },
     ],
   }),
   component: Index,
@@ -125,15 +125,6 @@ function Index() {
               </div>
             </div>
 
-            <div className="mt-20">
-              <img
-                src={heroChrome}
-                alt="Chrome nail finish, signature look"
-                width={1440}
-                height={700}
-                className="aspect-[21/9] w-full rounded-xl object-cover ring-1 ring-black/5"
-              />
-            </div>
           </div>
         </section>
 
