@@ -219,11 +219,11 @@ function Index() {
                 <div className="mt-12 grid grid-cols-2 gap-8 border-t border-background/10 pt-12">
                   <div>
                     <p className="text-sm font-semibold uppercase tracking-widest text-background/50">Experience</p>
-                    <p className="mt-2 font-sans text-xl font-medium">8+ Years</p>
+                    <p className="mt-2 font-sans text-xl font-medium">3 YEARS</p>
                   </div>
                   <div>
                     <p className="text-sm font-semibold uppercase tracking-widest text-background/50">Location</p>
-                    <p className="mt-2 font-sans text-xl font-medium">DTLA Studio</p>
+                    <p className="mt-2 font-sans text-xl font-medium">SALVATION ARMY, GREAT NORTH ROAD LUSAKA</p>
                   </div>
                 </div>
               </div>
