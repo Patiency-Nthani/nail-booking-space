@@ -45,6 +45,12 @@ const services = [
     duration: "2:30 MINS",
     price: "FROM K180",
   },
+  {
+    name: "Polygel Nails",
+    desc: "A hybrid gel-acrylic formula for strong, flexible nails with a natural finish. Lighter than acrylics with the strength of hard gel.",
+    duration: "2:30 MINS",
+    price: "FROM K180",
+  },
 ];
 
 const gallery = [
