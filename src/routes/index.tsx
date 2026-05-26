@@ -30,20 +30,20 @@ const services = [
   {
     name: "Structured Gel Overlay",
     desc: "Natural nail strengthening using high-quality builder gel. Includes meticulous cuticle work and solid color polish.",
-    duration: "90 Mins",
-    price: "From $85",
+    duration: "1:30 MINS",
+    price: "FROM K100",
   },
   {
-    name: "Aprés Gel-X Extension",
+    name: "Gel-X Extension",
     desc: "Soft gel extensions for length and durability. Available in short, medium, and long almond or coffin shapes.",
-    duration: "120 Mins",
-    price: "From $110",
+    duration: "2:00 HOURS",
+    price: "FROM K160",
   },
   {
-    name: "Custom Nail Art",
+    name: "Acrylic Nails",
     desc: "Tiered pricing based on complexity. Includes hand-painted French, 3D textures, and chrome finishes.",
-    duration: "+30 Mins",
-    price: "+$25",
+    duration: "2:30 MINS",
+    price: "FROM K180",
   },
 ];
 
