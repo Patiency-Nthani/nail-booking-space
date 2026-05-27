@@ -312,7 +312,10 @@ function Index() {
                         <span className="text-xs font-medium text-muted-foreground/60">{d.day}</span>
                         <button
                           type="button"
-                          onClick={() => setSelectedDay(d.d)}
+                          onClick={() => {
+                            setSelectedDay(d.d);
+                            setSelectedTime(null);
+                          }}
                           className={`flex aspect-square w-full items-center justify-center rounded-md text-sm font-medium transition-colors ${
                             selectedDay === d.d
                               ? "bg-primary text-primary-foreground"
