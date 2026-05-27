@@ -69,7 +69,7 @@ const days = [
   { d: 19, day: "F" },
   { d: 20, day: "S" },
 ];
-const times = ["10:00 AM", "12:30 PM", "03:00 PM"];
+const times = ["08:00", "10:30", "14:00"];
 
 function Index() {
   const [selectedDay, setSelectedDay] = useState(15);
@@ -343,7 +343,7 @@ function Index() {
           <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
             <div className="text-center md:text-left">
               <p className="font-serif text-lg font-medium">PTheNailTech's Space</p>
-              <p className="mt-2 text-sm text-muted-foreground">Private Studio · Los Angeles, CA</p>
+              <p className="mt-2 text-sm text-muted-foreground">Private Studio · Lusaka, Zambia</p>
             </div>
             <div className="flex gap-12">
             <div className="flex flex-col gap-2">
@@ -351,8 +351,8 @@ function Index() {
                 <a href="mailto:hello@pthenailtech.space" className="text-sm font-medium">
                   hello@pthenailtech.space
                 </a>
-                <a href="tel:0779109199" className="text-sm font-medium">
-                  0779109199
+                <a href="tel:+260779109199" className="text-sm font-medium">
+                  +260 779 109 199
                 </a>
               </div>
               <div className="flex flex-col gap-2">
