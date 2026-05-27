@@ -69,7 +69,7 @@ const days = [
   { d: 19, day: "F" },
   { d: 20, day: "S" },
 ];
-const times = ["10:00 AM", "12:30 PM", "03:00 PM"];
+const times = ["08:00", "10:30", "14:00"];
 
 function Index() {
   const [selectedDay, setSelectedDay] = useState(15);
