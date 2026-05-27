@@ -276,8 +276,23 @@ function Index() {
                     toast.error("Please choose a preferred time");
                     return;
                   }
+                  if (isBooked(selectedDay, selectedTime)) {
+                    toast.error("That slot was just booked", {
+                      description: "Please pick another available time.",
+                    });
+                    setSelectedTime(null);
+                    return;
+                  }
                   setSubmitting(true);
                   setTimeout(() => {
+                    const key = slotKey(selectedDay, selectedTime);
+                    const next = { ...bookedSlots, [key]: true as const };
+                    setBookedSlots(next);
+                    try {
+                      localStorage.setItem(BOOKINGS_KEY, JSON.stringify(next));
+                    } catch {
+                      // storage unavailable — booking still tracked in-session
+                    }
                     setSubmitting(false);
                     (e.target as HTMLFormElement).reset();
                     setSelectedTime(null);
