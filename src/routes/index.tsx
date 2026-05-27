@@ -334,21 +334,44 @@ function Index() {
                     Available Times
                   </label>
                   <div className="mt-4 grid grid-cols-3 gap-3">
-                    {times.map((t) => (
-                      <button
-                        key={t}
-                        type="button"
-                        onClick={() => setSelectedTime(t)}
-                        className={`h-10 rounded-md text-sm font-medium ring-1 transition-colors ${
-                          selectedTime === t
-                            ? "bg-primary text-primary-foreground ring-primary"
-                            : "ring-border hover:ring-foreground"
-                        }`}
-                      >
-                        {t}
-                      </button>
-                    ))}
+                    {times.map((t) => {
+                      const booked = isBooked(selectedDay, t);
+                      const selected = selectedTime === t;
+                      return (
+                        <button
+                          key={t}
+                          type="button"
+                          disabled={booked}
+                          aria-disabled={booked}
+                          title={booked ? "Unavailable — already booked" : undefined}
+                          onClick={() => !booked && setSelectedTime(t)}
+                          className={`relative h-10 rounded-md text-sm font-medium ring-1 transition-colors ${
+                            booked
+                              ? "cursor-not-allowed bg-muted text-muted-foreground line-through ring-border opacity-60"
+                              : selected
+                                ? "bg-primary text-primary-foreground ring-primary"
+                                : "ring-border hover:ring-foreground"
+                          }`}
+                        >
+                          {t}
+                          {booked && (
+                            <span className="ml-1 text-[10px] font-semibold uppercase tracking-wider">
+                              Booked
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
+                  {times.every((t) => isBooked(selectedDay, t)) ? (
+                    <p className="mt-3 text-xs text-destructive">
+                      All times for day {selectedDay} are booked. Please pick another date.
+                    </p>
+                  ) : (
+                    <p className="mt-3 text-xs text-muted-foreground">
+                      Greyed-out times are already booked — please choose an available slot.
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
