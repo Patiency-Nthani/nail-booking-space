@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
 
@@ -73,10 +73,26 @@ const days = [
 ];
 const times = ["08:00", "10:30", "14:00"];
 
+const BOOKINGS_KEY = "pthenailtech.bookings.v1";
+
 function Index() {
   const [selectedDay, setSelectedDay] = useState(15);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [bookedSlots, setBookedSlots] = useState<Record<string, true>>({});
+
+  // Load existing bookings from localStorage (client-only to avoid SSR mismatch)
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(BOOKINGS_KEY);
+      if (raw) setBookedSlots(JSON.parse(raw));
+    } catch {
+      // ignore corrupt storage
+    }
+  }, []);
+
+  const slotKey = (day: number, time: string) => `${day}|${time}`;
+  const isBooked = (day: number, time: string) => Boolean(bookedSlots[slotKey(day, time)]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -260,8 +276,23 @@ function Index() {
                     toast.error("Please choose a preferred time");
                     return;
                   }
+                  if (isBooked(selectedDay, selectedTime)) {
+                    toast.error("That slot was just booked", {
+                      description: "Please pick another available time.",
+                    });
+                    setSelectedTime(null);
+                    return;
+                  }
                   setSubmitting(true);
                   setTimeout(() => {
+                    const key = slotKey(selectedDay, selectedTime);
+                    const next = { ...bookedSlots, [key]: true as const };
+                    setBookedSlots(next);
+                    try {
+                      localStorage.setItem(BOOKINGS_KEY, JSON.stringify(next));
+                    } catch {
+                      // storage unavailable — booking still tracked in-session
+                    }
                     setSubmitting(false);
                     (e.target as HTMLFormElement).reset();
                     setSelectedTime(null);
@@ -281,7 +312,10 @@ function Index() {
                         <span className="text-xs font-medium text-muted-foreground/60">{d.day}</span>
                         <button
                           type="button"
-                          onClick={() => setSelectedDay(d.d)}
+                          onClick={() => {
+                            setSelectedDay(d.d);
+                            setSelectedTime(null);
+                          }}
                           className={`flex aspect-square w-full items-center justify-center rounded-md text-sm font-medium transition-colors ${
                             selectedDay === d.d
                               ? "bg-primary text-primary-foreground"
@@ -300,21 +334,44 @@ function Index() {
                     Available Times
                   </label>
                   <div className="mt-4 grid grid-cols-3 gap-3">
-                    {times.map((t) => (
-                      <button
-                        key={t}
-                        type="button"
-                        onClick={() => setSelectedTime(t)}
-                        className={`h-10 rounded-md text-sm font-medium ring-1 transition-colors ${
-                          selectedTime === t
-                            ? "bg-primary text-primary-foreground ring-primary"
-                            : "ring-border hover:ring-foreground"
-                        }`}
-                      >
-                        {t}
-                      </button>
-                    ))}
+                    {times.map((t) => {
+                      const booked = isBooked(selectedDay, t);
+                      const selected = selectedTime === t;
+                      return (
+                        <button
+                          key={t}
+                          type="button"
+                          disabled={booked}
+                          aria-disabled={booked}
+                          title={booked ? "Unavailable — already booked" : undefined}
+                          onClick={() => !booked && setSelectedTime(t)}
+                          className={`relative h-10 rounded-md text-sm font-medium ring-1 transition-colors ${
+                            booked
+                              ? "cursor-not-allowed bg-muted text-muted-foreground line-through ring-border opacity-60"
+                              : selected
+                                ? "bg-primary text-primary-foreground ring-primary"
+                                : "ring-border hover:ring-foreground"
+                          }`}
+                        >
+                          {t}
+                          {booked && (
+                            <span className="ml-1 text-[10px] font-semibold uppercase tracking-wider">
+                              Booked
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
                   </div>
+                  {times.every((t) => isBooked(selectedDay, t)) ? (
+                    <p className="mt-3 text-xs text-destructive">
+                      All times for day {selectedDay} are booked. Please pick another date.
+                    </p>
+                  ) : (
+                    <p className="mt-3 text-xs text-muted-foreground">
+                      Greyed-out times are already booked — please choose an available slot.
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid gap-4 md:grid-cols-2">
