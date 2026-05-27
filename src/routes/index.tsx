@@ -73,10 +73,26 @@ const days = [
 ];
 const times = ["08:00", "10:30", "14:00"];
 
+const BOOKINGS_KEY = "pthenailtech.bookings.v1";
+
 function Index() {
   const [selectedDay, setSelectedDay] = useState(15);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [bookedSlots, setBookedSlots] = useState<Record<string, true>>({});
+
+  // Load existing bookings from localStorage (client-only to avoid SSR mismatch)
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(BOOKINGS_KEY);
+      if (raw) setBookedSlots(JSON.parse(raw));
+    } catch {
+      // ignore corrupt storage
+    }
+  }, []);
+
+  const slotKey = (day: number, time: string) => `${day}|${time}`;
+  const isBooked = (day: number, time: string) => Boolean(bookedSlots[slotKey(day, time)]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
