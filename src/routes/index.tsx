@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { z } from "zod";
+import { toast } from "sonner";
 
 import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
@@ -73,11 +75,23 @@ const times = ["08:00", "10:30", "14:00"];
 
 function Index() {
   const [selectedDay, setSelectedDay] = useState(15);
-  const [selectedTime, setSelectedTime] = useState<string | null>("12:30 PM");
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const bookingSchema = z.object({
+    name: z.string().trim().min(2, "Please enter your full name").max(100),
+    phone: z
+      .string()
+      .trim()
+      .min(7, "Please enter a valid phone number")
+      .max(20)
+      .regex(/^[0-9+\s()-]+$/, "Phone may only contain digits and + ( ) -"),
+    service: z.string().min(1, "Select a service"),
+  });
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
@@ -231,10 +245,30 @@ function Index() {
                 className="space-y-8"
                 onSubmit={(e) => {
                   e.preventDefault();
+                  if (submitting) return;
                   const fd = new FormData(e.currentTarget);
-                  alert(
-                    `Request received for ${fd.get("name")} on April ${selectedDay} at ${selectedTime ?? "—"}.\nWe'll be in touch shortly.`,
-                  );
+                  const parsed = bookingSchema.safeParse({
+                    name: String(fd.get("name") ?? ""),
+                    phone: String(fd.get("phone") ?? ""),
+                    service: String(fd.get("service") ?? ""),
+                  });
+                  if (!parsed.success) {
+                    toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
+                    return;
+                  }
+                  if (!selectedTime) {
+                    toast.error("Please choose a preferred time");
+                    return;
+                  }
+                  setSubmitting(true);
+                  setTimeout(() => {
+                    setSubmitting(false);
+                    (e.target as HTMLFormElement).reset();
+                    setSelectedTime(null);
+                    toast.success("Booking request received", {
+                      description: `${parsed.data.name} · ${parsed.data.service} · Day ${selectedDay} at ${selectedTime}. We'll confirm via ${parsed.data.phone}.`,
+                    });
+                  }, 400);
                 }}
               >
                 <div>
@@ -306,7 +340,7 @@ function Index() {
                       type="tel"
                       required
                       className="h-11 w-full rounded-md bg-background px-3 text-sm ring-1 ring-border outline-none transition-colors focus:ring-foreground"
-                      placeholder="+1 555 0123"
+                      placeholder="+260 779 109 199"
                     />
                   </div>
                 </div>
@@ -328,9 +362,10 @@ function Index() {
 
                 <button
                   type="submit"
-                  className="mt-2 h-12 w-full bg-primary text-sm font-medium text-primary-foreground ring-1 ring-primary transition-colors hover:bg-primary/90"
+                  disabled={submitting}
+                  className="mt-2 h-12 w-full bg-primary text-sm font-medium text-primary-foreground ring-1 ring-primary transition-colors hover:bg-primary/90 disabled:opacity-60"
                 >
-                  Confirm Request
+                  {submitting ? "Sending…" : "Confirm Request"}
                 </button>
               </form>
             </div>
