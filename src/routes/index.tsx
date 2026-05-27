@@ -245,10 +245,30 @@ function Index() {
                 className="space-y-8"
                 onSubmit={(e) => {
                   e.preventDefault();
+                  if (submitting) return;
                   const fd = new FormData(e.currentTarget);
-                  alert(
-                    `Request received for ${fd.get("name")} on April ${selectedDay} at ${selectedTime ?? "—"}.\nWe'll be in touch shortly.`,
-                  );
+                  const parsed = bookingSchema.safeParse({
+                    name: String(fd.get("name") ?? ""),
+                    phone: String(fd.get("phone") ?? ""),
+                    service: String(fd.get("service") ?? ""),
+                  });
+                  if (!parsed.success) {
+                    toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
+                    return;
+                  }
+                  if (!selectedTime) {
+                    toast.error("Please choose a preferred time");
+                    return;
+                  }
+                  setSubmitting(true);
+                  setTimeout(() => {
+                    setSubmitting(false);
+                    (e.target as HTMLFormElement).reset();
+                    setSelectedTime(null);
+                    toast.success("Booking request received", {
+                      description: `${parsed.data.name} · ${parsed.data.service} · Day ${selectedDay} at ${selectedTime}. We'll confirm via ${parsed.data.phone}.`,
+                    });
+                  }, 400);
                 }}
               >
                 <div>
