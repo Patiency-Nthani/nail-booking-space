@@ -340,7 +340,7 @@ function Index() {
                       type="tel"
                       required
                       className="h-11 w-full rounded-md bg-background px-3 text-sm ring-1 ring-border outline-none transition-colors focus:ring-foreground"
-                      placeholder="+1 555 0123"
+                      placeholder="+260 779 109 199"
                     />
                   </div>
                 </div>
