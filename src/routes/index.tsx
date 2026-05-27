@@ -343,7 +343,7 @@ function Index() {
           <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
             <div className="text-center md:text-left">
               <p className="font-serif text-lg font-medium">PTheNailTech's Space</p>
-              <p className="mt-2 text-sm text-muted-foreground">Private Studio · Los Angeles, CA</p>
+              <p className="mt-2 text-sm text-muted-foreground">Private Studio · Lusaka, Zambia</p>
             </div>
             <div className="flex gap-12">
             <div className="flex flex-col gap-2">
