@@ -75,11 +75,23 @@ const times = ["08:00", "10:30", "14:00"];
 
 function Index() {
   const [selectedDay, setSelectedDay] = useState(15);
-  const [selectedTime, setSelectedTime] = useState<string | null>("12:30 PM");
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
+
+  const bookingSchema = z.object({
+    name: z.string().trim().min(2, "Please enter your full name").max(100),
+    phone: z
+      .string()
+      .trim()
+      .min(7, "Please enter a valid phone number")
+      .max(20)
+      .regex(/^[0-9+\s()-]+$/, "Phone may only contain digits and + ( ) -"),
+    service: z.string().min(1, "Select a service"),
+  });
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
