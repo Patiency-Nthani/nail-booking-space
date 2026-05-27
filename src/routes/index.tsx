@@ -362,9 +362,10 @@ function Index() {
 
                 <button
                   type="submit"
-                  className="mt-2 h-12 w-full bg-primary text-sm font-medium text-primary-foreground ring-1 ring-primary transition-colors hover:bg-primary/90"
+                  disabled={submitting}
+                  className="mt-2 h-12 w-full bg-primary text-sm font-medium text-primary-foreground ring-1 ring-primary transition-colors hover:bg-primary/90 disabled:opacity-60"
                 >
-                  Confirm Request
+                  {submitting ? "Sending…" : "Confirm Request"}
                 </button>
               </form>
             </div>
