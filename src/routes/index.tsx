@@ -346,10 +346,13 @@ function Index() {
               <p className="mt-2 text-sm text-muted-foreground">Private Studio · Los Angeles, CA</p>
             </div>
             <div className="flex gap-12">
-              <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2">
                 <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Contact</span>
                 <a href="mailto:hello@pthenailtech.space" className="text-sm font-medium">
                   hello@pthenailtech.space
+                </a>
+                <a href="tel:0779109199" className="text-sm font-medium">
+                  0779109199
                 </a>
               </div>
               <div className="flex flex-col gap-2">
