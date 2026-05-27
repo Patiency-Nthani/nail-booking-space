@@ -351,8 +351,8 @@ function Index() {
                 <a href="mailto:hello@pthenailtech.space" className="text-sm font-medium">
                   hello@pthenailtech.space
                 </a>
-                <a href="tel:0779109199" className="text-sm font-medium">
-                  0779109199
+                <a href="tel:+260779109199" className="text-sm font-medium">
+                  +260 779 109 199
                 </a>
               </div>
               <div className="flex flex-col gap-2">
