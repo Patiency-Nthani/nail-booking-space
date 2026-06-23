@@ -215,7 +215,7 @@ function Index() {
         </section>
 
         {/* About */}
-        <section className="bg-surface-deep py-24 text-background">
+        <section className="bg-surface-deep py-24 text-white">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid items-center gap-16 lg:grid-cols-12">
               <div className="lg:col-span-5">
