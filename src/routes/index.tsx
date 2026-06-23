@@ -199,7 +199,7 @@ function Index() {
             </div>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {gallery.map((g) => (
-                <figure key={g.label} className="overflow-hidden rounded-xl ring-1 ring-black/5">
+                <figure key={g.label} className="overflow-hidden rounded-xl ring-1 ring-foreground/5">
                   <img
                     src={g.src}
                     alt={g.label}
