@@ -239,7 +239,7 @@ function Index() {
                 </p>
                 <div className="mt-12 grid grid-cols-2 gap-8 border-t border-background/10 pt-12">
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-widest text-background/50">Experience</p>
+                    <p className="text-sm font-semibold uppercase tracking-widest text-white/50">Experience</p>
                     <p className="mt-2 font-sans text-xl font-medium">3 YEARS</p>
                   </div>
                   <div>
