@@ -71,7 +71,7 @@ const days = [
   { d: 19, day: "F" },
   { d: 20, day: "S" },
 ];
-const times = ["08:00", "10:30", "14:00"];
+const times = ["08:00", "10:30", "14:00", "17:30"];
 
 const BOOKINGS_KEY = "pthenailtech.bookings.v1";
 
