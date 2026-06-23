@@ -162,7 +162,7 @@ function Index() {
         <section id="services" className="bg-secondary/50 py-24">
           <div className="mx-auto max-w-6xl px-6">
             <h2 className="mb-16 text-balance font-serif text-3xl font-medium tracking-tight">Selected Services</h2>
-            <div className="grid gap-px bg-border/60 ring-1 ring-black/5">
+            <div className="grid gap-px bg-border/60 ring-1 ring-foreground/5">
               {services.map((s) => (
                 <div key={s.name} className="group bg-background p-8 transition-colors hover:bg-secondary/40">
                   <div className="flex items-start justify-between gap-6">
@@ -199,7 +199,7 @@ function Index() {
             </div>
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
               {gallery.map((g) => (
-                <figure key={g.label} className="overflow-hidden rounded-xl ring-1 ring-black/5">
+                <figure key={g.label} className="overflow-hidden rounded-xl ring-1 ring-foreground/5">
                   <img
                     src={g.src}
                     alt={g.label}
@@ -215,7 +215,7 @@ function Index() {
         </section>
 
         {/* About */}
-        <section className="bg-surface-deep py-24 text-background">
+        <section className="bg-surface-deep py-24 text-white">
           <div className="mx-auto max-w-6xl px-6">
             <div className="grid items-center gap-16 lg:grid-cols-12">
               <div className="lg:col-span-5">
@@ -225,25 +225,25 @@ function Index() {
                   loading="lazy"
                   width={800}
                   height={1000}
-                  className="aspect-[4/5] w-full rounded-xl object-cover ring-1 ring-white/5"
+                  className="aspect-[4/5] w-full rounded-xl object-cover ring-1 ring-white/10"
                 />
               </div>
               <div className="lg:col-span-7">
                 <h2 className="text-balance font-serif text-4xl font-medium leading-tight">
                   Modern precision for the discerning hand.
                 </h2>
-                <p className="mt-8 max-w-[48ch] text-pretty text-lg leading-relaxed text-background/70">
+                <p className="mt-8 max-w-[48ch] text-pretty text-lg leading-relaxed text-white/70">
                   PTheNailTech's Space is an appointment-only studio dedicated to the intersection of health and high-end
                   design. Your nails are the ultimate accessory — an expression of personal style that deserves meticulous
                   care and premium products.
                 </p>
                 <div className="mt-12 grid grid-cols-2 gap-8 border-t border-background/10 pt-12">
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-widest text-background/50">Experience</p>
+                    <p className="text-sm font-semibold uppercase tracking-widest text-white/50">Experience</p>
                     <p className="mt-2 font-sans text-xl font-medium">3 YEARS</p>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold uppercase tracking-widest text-background/50">Location</p>
+                    <p className="text-sm font-semibold uppercase tracking-widest text-white/50">Location</p>
                     <p className="mt-2 font-sans text-xl font-medium">SALVATION ARMY, GREAT NORTH ROAD LUSAKA</p>
                   </div>
                 </div>
@@ -255,7 +255,7 @@ function Index() {
         {/* Booking */}
         <section id="book" className="py-24">
           <div className="mx-auto max-w-3xl px-6">
-            <div className="rounded-xl bg-background p-8 ring-1 ring-black/5">
+            <div className="rounded-xl bg-background p-8 ring-1 ring-foreground/5">
               <h2 className="mb-8 text-center font-serif text-2xl font-medium">Reserve Your Session</h2>
               <form
                 className="space-y-8"
