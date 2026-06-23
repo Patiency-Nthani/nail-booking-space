@@ -162,7 +162,7 @@ function Index() {
         <section id="services" className="bg-secondary/50 py-24">
           <div className="mx-auto max-w-6xl px-6">
             <h2 className="mb-16 text-balance font-serif text-3xl font-medium tracking-tight">Selected Services</h2>
-            <div className="grid gap-px bg-border/60 ring-1 ring-black/5">
+            <div className="grid gap-px bg-border/60 ring-1 ring-foreground/5">
               {services.map((s) => (
                 <div key={s.name} className="group bg-background p-8 transition-colors hover:bg-secondary/40">
                   <div className="flex items-start justify-between gap-6">
