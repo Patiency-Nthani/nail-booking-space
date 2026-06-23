@@ -225,7 +225,7 @@ function Index() {
                   loading="lazy"
                   width={800}
                   height={1000}
-                  className="aspect-[4/5] w-full rounded-xl object-cover ring-1 ring-white/5"
+                  className="aspect-[4/5] w-full rounded-xl object-cover ring-1 ring-white/10"
                 />
               </div>
               <div className="lg:col-span-7">
