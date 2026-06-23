@@ -76,6 +76,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "PTheNailTech's Space" },
       { name: "description", content: "Editorial nail studio — book your appointment." },
       { property: "og:type", content: "website" },
+      { property: "og:title", content: "PTheNailTech's Space" },
+      { name: "twitter:title", content: "PTheNailTech's Space" },
+      { property: "og:description", content: "Editorial nail studio — book your appointment." },
+      { name: "twitter:description", content: "Editorial nail studio — book your appointment." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sCFqmq98jrMXqGAJWGnKwj8SztK2/social-images/social-1782232353888-IMG_4853.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/sCFqmq98jrMXqGAJWGnKwj8SztK2/social-images/social-1782232353888-IMG_4853.webp" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
