@@ -255,7 +255,7 @@ function Index() {
         {/* Booking */}
         <section id="book" className="py-24">
           <div className="mx-auto max-w-3xl px-6">
-            <div className="rounded-xl bg-background p-8 ring-1 ring-black/5">
+            <div className="rounded-xl bg-background p-8 ring-1 ring-foreground/5">
               <h2 className="mb-8 text-center font-serif text-2xl font-medium">Reserve Your Session</h2>
               <form
                 className="space-y-8"
