@@ -39,28 +39,28 @@ const services = [
     desc: "Natural nail strengthening using high-quality builder gel. Includes meticulous cuticle work and solid color polish.",
     duration: "1:30 MINS",
     price: "FROM K100",
-    image: serviceGel,
+    images: [serviceGel, gallery2, gallery3, gallery4],
   },
   {
     name: "Gel-X Extension",
     desc: "Soft gel extensions for length and durability. Available in short, medium, and long almond or coffin shapes.",
     duration: "2:00 HOURS",
     price: "FROM K160",
-    image: serviceGelX,
+    images: [serviceGelX, gallery1, gallery3, gallery4],
   },
   {
     name: "Acrylic Nails",
     desc: "Tiered pricing based on complexity. Includes hand-painted French, 3D textures, and chrome finishes.",
     duration: "2:30 MINS",
     price: "FROM K180",
-    image: serviceAcrylic,
+    images: [serviceAcrylic, gallery1, gallery2, gallery4],
   },
   {
     name: "Polygel Nails",
     desc: "A hybrid gel-acrylic formula for strong, flexible nails with a natural finish. Lighter than acrylics with the strength of hard gel.",
     duration: "2:30 MINS",
     price: "FROM K180",
-    image: servicePolygel,
+    images: [servicePolygel, gallery1, gallery2, gallery3],
   },
 ];
 
@@ -174,13 +174,17 @@ function Index() {
             <div className="grid gap-6 sm:grid-cols-2">
               {services.map((s) => (
                 <div key={s.name} className="group overflow-hidden rounded-xl bg-background ring-1 ring-foreground/5 transition-colors hover:bg-secondary/40">
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
-                    <img
-                      src={s.image}
-                      alt={s.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                  <div className="grid grid-cols-2 gap-1">
+                    {s.images.map((img, i) => (
+                      <div key={i} className="aspect-square overflow-hidden bg-muted">
+                        <img
+                          src={img}
+                          alt={`${s.name} ${i + 1}`}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                      </div>
+                    ))}
                   </div>
                   <div className="p-6">
                     <div className="flex items-start justify-between gap-4">
