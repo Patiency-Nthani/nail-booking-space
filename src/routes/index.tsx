@@ -149,10 +149,10 @@ function Index() {
                 Now accepting appointments
               </span>
               <h1 className="max-w-[20ch] text-balance font-serif text-5xl font-medium leading-tight tracking-tight md:text-7xl lg:text-8xl">
-                Beautifully refined
+                The art of the <span className="italic">perfect</span> extension.
               </h1>
               <p className="mt-8 max-w-[52ch] text-pretty text-lg text-muted-foreground">
-                Thoughtfully crafted structured gel, gel-X, Acrylic and Polygel Extensions for those who appreciate the details.
+                Specializing in structured gel manicures and high-precision Gel-X extensions for the modern minimalist.
               </p>
               <div className="mt-10">
                 <button
