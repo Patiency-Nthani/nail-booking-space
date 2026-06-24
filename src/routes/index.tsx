@@ -28,30 +28,39 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+import serviceGel from "@/assets/gallery-1.jpg";
+import serviceGelX from "@/assets/gallery-2.jpg";
+import serviceAcrylic from "@/assets/gallery-3.jpg";
+import servicePolygel from "@/assets/gallery-4.jpg";
+
 const services = [
   {
     name: "Structured Gel Overlay",
     desc: "Natural nail strengthening using high-quality builder gel. Includes meticulous cuticle work and solid color polish.",
     duration: "1:30 MINS",
     price: "FROM K100",
+    image: serviceGel,
   },
   {
     name: "Gel-X Extension",
     desc: "Soft gel extensions for length and durability. Available in short, medium, and long almond or coffin shapes.",
     duration: "2:00 HOURS",
     price: "FROM K160",
+    image: serviceGelX,
   },
   {
     name: "Acrylic Nails",
     desc: "Tiered pricing based on complexity. Includes hand-painted French, 3D textures, and chrome finishes.",
     duration: "2:30 MINS",
     price: "FROM K180",
+    image: serviceAcrylic,
   },
   {
     name: "Polygel Nails",
     desc: "A hybrid gel-acrylic formula for strong, flexible nails with a natural finish. Lighter than acrylics with the strength of hard gel.",
     duration: "2:30 MINS",
     price: "FROM K180",
+    image: servicePolygel,
   },
 ];
 
