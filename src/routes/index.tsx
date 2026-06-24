@@ -32,6 +32,10 @@ import serviceGel from "@/assets/gallery-1.jpg";
 import serviceGelX from "@/assets/gallery-2.jpg";
 import serviceAcrylic from "@/assets/gallery-3.jpg";
 import servicePolygel from "@/assets/gallery-4.jpg";
+import gelx1 from "@/assets/gelx-1.jpeg.asset.json";
+import gelx2 from "@/assets/gelx-2.jpeg.asset.json";
+import gelx3 from "@/assets/gelx-3.jpeg.asset.json";
+import gelx4 from "@/assets/gelx-4.jpeg.asset.json";
 
 const services = [
   {
@@ -46,7 +50,7 @@ const services = [
     desc: "Soft gel extensions for length and durability. Available in short, medium, and long almond or coffin shapes.",
     duration: "2:00 HOURS",
     price: "FROM K160",
-    images: [serviceGelX, gallery1, gallery3, gallery4],
+    images: [gelx1.url, gelx2.url, gelx3.url, gelx4.url],
   },
   {
     name: "Acrylic Nails",
