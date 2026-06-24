@@ -28,30 +28,39 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+import serviceGel from "@/assets/gallery-1.jpg";
+import serviceGelX from "@/assets/gallery-2.jpg";
+import serviceAcrylic from "@/assets/gallery-3.jpg";
+import servicePolygel from "@/assets/gallery-4.jpg";
+
 const services = [
   {
     name: "Structured Gel Overlay",
     desc: "Natural nail strengthening using high-quality builder gel. Includes meticulous cuticle work and solid color polish.",
     duration: "1:30 MINS",
     price: "FROM K100",
+    image: serviceGel,
   },
   {
     name: "Gel-X Extension",
     desc: "Soft gel extensions for length and durability. Available in short, medium, and long almond or coffin shapes.",
     duration: "2:00 HOURS",
     price: "FROM K160",
+    image: serviceGelX,
   },
   {
     name: "Acrylic Nails",
     desc: "Tiered pricing based on complexity. Includes hand-painted French, 3D textures, and chrome finishes.",
     duration: "2:30 MINS",
     price: "FROM K180",
+    image: serviceAcrylic,
   },
   {
     name: "Polygel Nails",
     desc: "A hybrid gel-acrylic formula for strong, flexible nails with a natural finish. Lighter than acrylics with the strength of hard gel.",
     duration: "2:30 MINS",
     price: "FROM K180",
+    image: servicePolygel,
   },
 ];
 
@@ -140,10 +149,10 @@ function Index() {
                 Now accepting appointments
               </span>
               <h1 className="max-w-[20ch] text-balance font-serif text-5xl font-medium leading-tight tracking-tight md:text-7xl lg:text-8xl">
-                Beautifully refined
+                The art of the <span className="italic">perfect</span> extension.
               </h1>
               <p className="mt-8 max-w-[52ch] text-pretty text-lg text-muted-foreground">
-                Thoughtfully crafted structured gel, gel-X, Acrylic and Polygel Extensions for those who appreciate the details.
+                Specializing in structured gel manicures and high-precision Gel-X extensions for the modern minimalist.
               </p>
               <div className="mt-10">
                 <button
@@ -162,22 +171,32 @@ function Index() {
         <section id="services" className="bg-secondary/50 py-24">
           <div className="mx-auto max-w-6xl px-6">
             <h2 className="mb-16 text-balance font-serif text-3xl font-medium tracking-tight">Selected Services</h2>
-            <div className="grid gap-px bg-border/60 ring-1 ring-foreground/5">
+            <div className="grid gap-6 sm:grid-cols-2">
               {services.map((s) => (
-                <div key={s.name} className="group bg-background p-8 transition-colors hover:bg-secondary/40">
-                  <div className="flex items-start justify-between gap-6">
-                    <div className="max-w-[40ch]">
-                      <h3 className="font-sans text-lg font-medium">{s.name}</h3>
-                      <p className="mt-2 text-pretty text-sm text-muted-foreground">{s.desc}</p>
-                      <div className="mt-4 flex items-center gap-4 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                        <span>{s.duration}</span>
-                        <span className="h-1 w-1 rounded-full bg-border" />
-                        <span>{s.price}</span>
+                <div key={s.name} className="group overflow-hidden rounded-xl bg-background ring-1 ring-foreground/5 transition-colors hover:bg-secondary/40">
+                  <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
+                    <img
+                      src={s.image}
+                      alt={s.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h3 className="font-sans text-lg font-medium">{s.name}</h3>
+                        <p className="mt-2 text-pretty text-sm text-muted-foreground">{s.desc}</p>
+                        <div className="mt-4 flex items-center gap-4 text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                          <span>{s.duration}</span>
+                          <span className="h-1 w-1 rounded-full bg-border" />
+                          <span>{s.price}</span>
+                        </div>
                       </div>
                     </div>
                     <button
                       onClick={() => scrollTo("book")}
-                      className="shrink-0 text-sm font-semibold underline underline-offset-4 hover:text-accent"
+                      className="mt-6 w-full rounded-md bg-primary py-2.5 text-sm font-semibold text-primary-foreground ring-1 ring-primary transition-colors hover:bg-primary/90"
                     >
                       Select
                     </button>
