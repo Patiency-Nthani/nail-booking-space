@@ -44,6 +44,10 @@ import poly1 from "@/assets/poly-1.jpeg.asset.json";
 import poly2 from "@/assets/poly-2.jpeg.asset.json";
 import poly3 from "@/assets/poly-3.jpeg.asset.json";
 import poly4 from "@/assets/poly-4.jpeg.asset.json";
+import acrylic1 from "@/assets/acrylic-1.jpeg.asset.json";
+import acrylic2 from "@/assets/acrylic-2.jpeg.asset.json";
+import acrylic3 from "@/assets/acrylic-3.jpeg.asset.json";
+import acrylic4 from "@/assets/acrylic-4.jpeg.asset.json";
 
 const services = [
   {
@@ -65,7 +69,7 @@ const services = [
     desc: "Tiered pricing based on complexity. Includes hand-painted French, 3D textures, and chrome finishes.",
     duration: "2:30 MINS",
     price: "FROM K180",
-    images: [serviceAcrylic, gallery1, gallery2, gallery4],
+    images: [acrylic1.url, acrylic2.url, acrylic3.url, acrylic4.url],
   },
   {
     name: "Polygel Nails",
