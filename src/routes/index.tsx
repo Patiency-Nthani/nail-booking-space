@@ -47,7 +47,7 @@ const services = [
     desc: "Natural nail strengthening using high-quality builder gel. Includes meticulous cuticle work and solid color polish.",
     duration: "1:30 MINS",
     price: "FROM K100",
-    images: [serviceGel, gallery2, gallery3, gallery4],
+    images: [sgo1.url, sgo2.url, sgo3.url, sgo4.url],
   },
   {
     name: "Gel-X Extension",
