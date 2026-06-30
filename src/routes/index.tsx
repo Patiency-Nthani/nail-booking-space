@@ -156,7 +156,7 @@ function Index() {
                 The art of the <span className="italic">perfect</span> extension.
               </h1>
               <p className="mt-8 max-w-[52ch] text-pretty text-lg text-muted-foreground">
-                Specializing in structured gel manicures and high-precision Gel-X extensions for the modern minimalist.
+                Thoughtfully crafted structured gel overlays, gel-X, Acrylic and Polygel Extensions for those who appreciate the details.
               </p>
               <div className="mt-10">
                 <button
