@@ -219,7 +219,8 @@ function Index() {
                           src={img}
                           alt={`${s.name} ${i + 1}`}
                           loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          onClick={() => setLightboxImage(img)}
+                          className="h-full w-full cursor-pointer object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
                     ))}
