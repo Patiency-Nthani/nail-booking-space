@@ -44,6 +44,10 @@ import poly1 from "@/assets/poly-1.jpeg.asset.json";
 import poly2 from "@/assets/poly-2.jpeg.asset.json";
 import poly3 from "@/assets/poly-3.jpeg.asset.json";
 import poly4 from "@/assets/poly-4.jpeg.asset.json";
+import acrylic1 from "@/assets/acrylic-1.jpeg.asset.json";
+import acrylic2 from "@/assets/acrylic-2.jpeg.asset.json";
+import acrylic3 from "@/assets/acrylic-3.jpeg.asset.json";
+import acrylic4 from "@/assets/acrylic-4.jpeg.asset.json";
 
 const services = [
   {
