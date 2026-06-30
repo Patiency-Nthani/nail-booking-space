@@ -69,7 +69,7 @@ const services = [
     desc: "Tiered pricing based on complexity. Includes hand-painted French, 3D textures, and chrome finishes.",
     duration: "2:30 MINS",
     price: "FROM K180",
-    images: [serviceAcrylic, gallery1, gallery2, gallery4],
+    images: [acrylic1.url, acrylic2.url, acrylic3.url, acrylic4.url],
   },
   {
     name: "Polygel Nails",
