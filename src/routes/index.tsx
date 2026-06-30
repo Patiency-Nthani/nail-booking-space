@@ -105,6 +105,7 @@ function Index() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [bookedSlots, setBookedSlots] = useState<Record<string, true>>({});
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   // Load existing bookings from localStorage (client-only to avoid SSR mismatch)
   useEffect(() => {
@@ -136,6 +137,27 @@ function Index() {
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
+      {/* Lightbox */}
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4"
+          onClick={() => setLightboxImage(null)}
+        >
+          <button
+            className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+            onClick={() => setLightboxImage(null)}
+            aria-label="Close"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+          <img
+            src={lightboxImage}
+            alt="Preview"
+            className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
       <nav className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <span className="font-serif text-xl font-semibold tracking-tight">PTheNailTech</span>
@@ -197,7 +219,8 @@ function Index() {
                           src={img}
                           alt={`${s.name} ${i + 1}`}
                           loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          onClick={() => setLightboxImage(img)}
+                          className="h-full w-full cursor-pointer object-cover transition-transform duration-700 group-hover:scale-105"
                         />
                       </div>
                     ))}
@@ -245,7 +268,8 @@ function Index() {
                     loading="lazy"
                     width={800}
                     height={800}
-                    className="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+                    onClick={() => setLightboxImage(g.src)}
+                    className="aspect-square w-full cursor-pointer object-cover transition-transform duration-700 hover:scale-105"
                   />
                 </figure>
               ))}
@@ -264,7 +288,8 @@ function Index() {
                   loading="lazy"
                   width={800}
                   height={1000}
-                  className="aspect-[4/5] w-full rounded-xl object-cover ring-1 ring-white/10"
+                  onClick={() => setLightboxImage(aboutTech)}
+                  className="aspect-[4/5] w-full cursor-pointer rounded-xl object-cover ring-1 ring-white/10"
                 />
               </div>
               <div className="lg:col-span-7">
