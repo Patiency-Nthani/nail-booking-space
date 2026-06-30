@@ -268,7 +268,8 @@ function Index() {
                     loading="lazy"
                     width={800}
                     height={800}
-                    className="aspect-square w-full object-cover transition-transform duration-700 hover:scale-105"
+                    onClick={() => setLightboxImage(g.src)}
+                    className="aspect-square w-full cursor-pointer object-cover transition-transform duration-700 hover:scale-105"
                   />
                 </figure>
               ))}
