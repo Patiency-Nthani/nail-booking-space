@@ -40,6 +40,10 @@ import sgo1 from "@/assets/sgo-1.jpeg.asset.json";
 import sgo2 from "@/assets/sgo-2.jpeg.asset.json";
 import sgo3 from "@/assets/sgo-3.jpeg.asset.json";
 import sgo4 from "@/assets/sgo-4.jpeg.asset.json";
+import poly1 from "@/assets/poly-1.jpeg.asset.json";
+import poly2 from "@/assets/poly-2.jpeg.asset.json";
+import poly3 from "@/assets/poly-3.jpeg.asset.json";
+import poly4 from "@/assets/poly-4.jpeg.asset.json";
 
 const services = [
   {
