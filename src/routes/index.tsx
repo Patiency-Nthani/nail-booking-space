@@ -105,6 +105,7 @@ function Index() {
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [bookedSlots, setBookedSlots] = useState<Record<string, true>>({});
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
 
   // Load existing bookings from localStorage (client-only to avoid SSR mismatch)
   useEffect(() => {
