@@ -36,6 +36,10 @@ import gelx1 from "@/assets/gelx-1.jpeg.asset.json";
 import gelx2 from "@/assets/gelx-2.jpeg.asset.json";
 import gelx3 from "@/assets/gelx-3.jpeg.asset.json";
 import gelx4 from "@/assets/gelx-4.jpeg.asset.json";
+import sgo1 from "@/assets/sgo-1.jpeg.asset.json";
+import sgo2 from "@/assets/sgo-2.jpeg.asset.json";
+import sgo3 from "@/assets/sgo-3.jpeg.asset.json";
+import sgo4 from "@/assets/sgo-4.jpeg.asset.json";
 
 const services = [
   {
