@@ -40,6 +40,10 @@ import sgo1 from "@/assets/sgo-1.jpeg.asset.json";
 import sgo2 from "@/assets/sgo-2.jpeg.asset.json";
 import sgo3 from "@/assets/sgo-3.jpeg.asset.json";
 import sgo4 from "@/assets/sgo-4.jpeg.asset.json";
+import poly1 from "@/assets/poly-1.jpeg.asset.json";
+import poly2 from "@/assets/poly-2.jpeg.asset.json";
+import poly3 from "@/assets/poly-3.jpeg.asset.json";
+import poly4 from "@/assets/poly-4.jpeg.asset.json";
 
 const services = [
   {
@@ -68,7 +72,7 @@ const services = [
     desc: "A hybrid gel-acrylic formula for strong, flexible nails with a natural finish. Lighter than acrylics with the strength of hard gel.",
     duration: "2:30 MINS",
     price: "FROM K180",
-    images: [servicePolygel, gallery1, gallery2, gallery3],
+    images: [poly1.url, poly2.url, poly3.url, poly4.url],
   },
 ];
 
