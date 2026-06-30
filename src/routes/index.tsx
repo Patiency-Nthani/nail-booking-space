@@ -72,7 +72,7 @@ const services = [
     desc: "A hybrid gel-acrylic formula for strong, flexible nails with a natural finish. Lighter than acrylics with the strength of hard gel.",
     duration: "2:30 MINS",
     price: "FROM K180",
-    images: [servicePolygel, gallery1, gallery2, gallery3],
+    images: [poly1.url, poly2.url, poly3.url, poly4.url],
   },
 ];
 
