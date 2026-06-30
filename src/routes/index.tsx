@@ -36,6 +36,10 @@ import gelx1 from "@/assets/gelx-1.jpeg.asset.json";
 import gelx2 from "@/assets/gelx-2.jpeg.asset.json";
 import gelx3 from "@/assets/gelx-3.jpeg.asset.json";
 import gelx4 from "@/assets/gelx-4.jpeg.asset.json";
+import sgo1 from "@/assets/sgo-1.jpeg.asset.json";
+import sgo2 from "@/assets/sgo-2.jpeg.asset.json";
+import sgo3 from "@/assets/sgo-3.jpeg.asset.json";
+import sgo4 from "@/assets/sgo-4.jpeg.asset.json";
 
 const services = [
   {
@@ -43,7 +47,7 @@ const services = [
     desc: "Natural nail strengthening using high-quality builder gel. Includes meticulous cuticle work and solid color polish.",
     duration: "1:30 MINS",
     price: "FROM K100",
-    images: [serviceGel, gallery2, gallery3, gallery4],
+    images: [sgo1.url, sgo2.url, sgo3.url, sgo4.url],
   },
   {
     name: "Gel-X Extension",
