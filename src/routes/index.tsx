@@ -490,6 +490,20 @@ function Index() {
                 </div>
 
                 <div className="space-y-2">
+                  <label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    className="h-11 w-full rounded-md bg-background px-3 text-sm ring-1 ring-border outline-none transition-colors focus:ring-foreground"
+                    placeholder="jane@example.com"
+                  />
+                </div>
+
+                <div className="space-y-2">
                   <label htmlFor="service" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Service
                   </label>
@@ -503,6 +517,7 @@ function Index() {
                     ))}
                   </select>
                 </div>
+
 
                 <button
                   type="submit"
