@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+
 
 const gallery1 = "/images/gallery-1.jpg";
 const gallery2 = "/images/gallery-2.jpg";
