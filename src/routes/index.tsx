@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
+
 
 const gallery1 = "/images/gallery-1.jpg";
 const gallery2 = "/images/gallery-2.jpg";
@@ -127,6 +129,7 @@ function Index() {
 
   const bookingSchema = z.object({
     name: z.string().trim().min(2, "Please enter your full name").max(100),
+    email: z.string().trim().email("Please enter a valid email").max(255),
     phone: z
       .string()
       .trim()
@@ -135,6 +138,7 @@ function Index() {
       .regex(/^[0-9+\s()-]+$/, "Phone may only contain digits and + ( ) -"),
     service: z.string().min(1, "Select a service"),
   });
+
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
@@ -324,12 +328,14 @@ function Index() {
               <h2 className="mb-8 text-center font-serif text-2xl font-medium">Reserve Your Session</h2>
               <form
                 className="space-y-8"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   if (submitting) return;
-                  const fd = new FormData(e.currentTarget);
+                  const form = e.currentTarget;
+                  const fd = new FormData(form);
                   const parsed = bookingSchema.safeParse({
                     name: String(fd.get("name") ?? ""),
+                    email: String(fd.get("email") ?? ""),
                     phone: String(fd.get("phone") ?? ""),
                     service: String(fd.get("service") ?? ""),
                   });
@@ -349,24 +355,40 @@ function Index() {
                     return;
                   }
                   setSubmitting(true);
-                  setTimeout(() => {
-                    const key = slotKey(selectedDay, selectedTime);
-                    const next = { ...bookedSlots, [key]: true as const };
-                    setBookedSlots(next);
-                    try {
-                      localStorage.setItem(BOOKINGS_KEY, JSON.stringify(next));
-                    } catch {
-                      // storage unavailable — booking still tracked in-session
-                    }
+                  const now = new Date();
+                  const bookingDate = new Date(now.getFullYear(), now.getMonth(), selectedDay)
+                    .toISOString()
+                    .slice(0, 10);
+                  const { error } = await supabase.from("bookings").insert({
+                    customer_name: parsed.data.name,
+                    customer_email: parsed.data.email,
+                    customer_phone: parsed.data.phone,
+                    service: parsed.data.service,
+                    booking_date: bookingDate,
+                    booking_time: selectedTime,
+                  });
+                  if (error) {
                     setSubmitting(false);
-                    (e.target as HTMLFormElement).reset();
-                    setSelectedTime(null);
-                    toast.success("Booking request received", {
-                      description: `${parsed.data.name} · ${parsed.data.service} · Day ${selectedDay} at ${selectedTime}. We'll confirm via ${parsed.data.phone}.`,
-                    });
-                  }, 400);
+                    toast.error("Could not save your booking", { description: error.message });
+                    return;
+                  }
+                  const key = slotKey(selectedDay, selectedTime);
+                  const next = { ...bookedSlots, [key]: true as const };
+                  setBookedSlots(next);
+                  try {
+                    localStorage.setItem(BOOKINGS_KEY, JSON.stringify(next));
+                  } catch {
+                    // storage unavailable — booking still tracked in-session
+                  }
+                  setSubmitting(false);
+                  form.reset();
+                  setSelectedTime(null);
+                  toast.success("Booking confirmed", {
+                    description: `${parsed.data.name} · ${parsed.data.service} · ${bookingDate} at ${selectedTime}. We'll be in touch on ${parsed.data.phone}.`,
+                  });
                 }}
               >
+
                 <div>
                   <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Select Date
@@ -468,6 +490,20 @@ function Index() {
                 </div>
 
                 <div className="space-y-2">
+                  <label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    className="h-11 w-full rounded-md bg-background px-3 text-sm ring-1 ring-border outline-none transition-colors focus:ring-foreground"
+                    placeholder="jane@example.com"
+                  />
+                </div>
+
+                <div className="space-y-2">
                   <label htmlFor="service" className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Service
                   </label>
@@ -481,6 +517,7 @@ function Index() {
                     ))}
                   </select>
                 </div>
+
 
                 <button
                   type="submit"
