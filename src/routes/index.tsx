@@ -129,6 +129,7 @@ function Index() {
 
   const bookingSchema = z.object({
     name: z.string().trim().min(2, "Please enter your full name").max(100),
+    email: z.string().trim().email("Please enter a valid email").max(255),
     phone: z
       .string()
       .trim()
@@ -137,6 +138,7 @@ function Index() {
       .regex(/^[0-9+\s()-]+$/, "Phone may only contain digits and + ( ) -"),
     service: z.string().min(1, "Select a service"),
   });
+
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
