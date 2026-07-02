@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
 
-import gallery1 from "@/assets/gallery-1.jpg";
-import gallery2 from "@/assets/gallery-2.jpg";
-import gallery3 from "@/assets/gallery-3.jpg";
-import gallery4 from "@/assets/gallery-4.jpg";
-import aboutTech from "@/assets/about-tech.jpg";
+const gallery1 = "/images/gallery-1.jpg";
+const gallery2 = "/images/gallery-2.jpg";
+const gallery3 = "/images/gallery-3.jpg";
+const gallery4 = "/images/gallery-4.jpg";
+const aboutTech = "/images/about-tech.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,26 +28,27 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-import serviceGel from "@/assets/gallery-1.jpg";
-import serviceGelX from "@/assets/gallery-2.jpg";
-import serviceAcrylic from "@/assets/gallery-3.jpg";
-import servicePolygel from "@/assets/gallery-4.jpg";
-import gelx1 from "@/assets/gelx-1.jpeg.asset.json";
-import gelx2 from "@/assets/gelx-2.jpeg.asset.json";
-import gelx3 from "@/assets/gelx-3.jpeg.asset.json";
-import gelx4 from "@/assets/gelx-4.jpeg.asset.json";
-import sgo1 from "@/assets/sgo-1.jpeg.asset.json";
-import sgo2 from "@/assets/sgo-2.jpeg.asset.json";
-import sgo3 from "@/assets/sgo-3.jpeg.asset.json";
-import sgo4 from "@/assets/sgo-4.jpeg.asset.json";
-import poly1 from "@/assets/poly-1.jpeg.asset.json";
-import poly2 from "@/assets/poly-2.jpeg.asset.json";
-import poly3 from "@/assets/poly-3.jpeg.asset.json";
-import poly4 from "@/assets/poly-4.jpeg.asset.json";
-import acrylic1 from "@/assets/acrylic-1.jpeg.asset.json";
-import acrylic2 from "@/assets/acrylic-2.jpeg.asset.json";
-import acrylic3 from "@/assets/acrylic-3.jpeg.asset.json";
-import acrylic4 from "@/assets/acrylic-4.jpeg.asset.json";
+const serviceGel = "/images/gallery-1.jpg";
+const serviceGelX = "/images/gallery-2.jpg";
+const serviceAcrylic = "/images/gallery-3.jpg";
+const servicePolygel = "/images/gallery-4.jpg";
+const gelx1 = { url: "/images/gelx-1.jpeg" };
+const gelx2 = { url: "/images/gelx-2.jpeg" };
+const gelx3 = { url: "/images/gelx-3.jpeg" };
+const gelx4 = { url: "/images/gelx-4.jpeg" };
+const sgo1 = { url: "/images/sgo-1.jpeg" };
+const sgo2 = { url: "/images/sgo-2.jpeg" };
+const sgo3 = { url: "/images/sgo-3.jpeg" };
+const sgo4 = { url: "/images/sgo-4.jpeg" };
+const poly1 = { url: "/images/poly-1.jpeg" };
+const poly2 = { url: "/images/poly-2.jpeg" };
+const poly3 = { url: "/images/poly-3.jpeg" };
+const poly4 = { url: "/images/poly-4.jpeg" };
+const acrylic1 = { url: "/images/acrylic-1.jpeg" };
+const acrylic2 = { url: "/images/acrylic-2.jpeg" };
+const acrylic3 = { url: "/images/acrylic-3.jpeg" };
+const acrylic4 = { url: "/images/acrylic-4.jpeg" };
+
 
 const services = [
   {
