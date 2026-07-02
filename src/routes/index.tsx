@@ -328,12 +328,14 @@ function Index() {
               <h2 className="mb-8 text-center font-serif text-2xl font-medium">Reserve Your Session</h2>
               <form
                 className="space-y-8"
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                   e.preventDefault();
                   if (submitting) return;
-                  const fd = new FormData(e.currentTarget);
+                  const form = e.currentTarget;
+                  const fd = new FormData(form);
                   const parsed = bookingSchema.safeParse({
                     name: String(fd.get("name") ?? ""),
+                    email: String(fd.get("email") ?? ""),
                     phone: String(fd.get("phone") ?? ""),
                     service: String(fd.get("service") ?? ""),
                   });
@@ -353,24 +355,40 @@ function Index() {
                     return;
                   }
                   setSubmitting(true);
-                  setTimeout(() => {
-                    const key = slotKey(selectedDay, selectedTime);
-                    const next = { ...bookedSlots, [key]: true as const };
-                    setBookedSlots(next);
-                    try {
-                      localStorage.setItem(BOOKINGS_KEY, JSON.stringify(next));
-                    } catch {
-                      // storage unavailable — booking still tracked in-session
-                    }
+                  const now = new Date();
+                  const bookingDate = new Date(now.getFullYear(), now.getMonth(), selectedDay)
+                    .toISOString()
+                    .slice(0, 10);
+                  const { error } = await supabase.from("bookings").insert({
+                    customer_name: parsed.data.name,
+                    customer_email: parsed.data.email,
+                    customer_phone: parsed.data.phone,
+                    service: parsed.data.service,
+                    booking_date: bookingDate,
+                    booking_time: selectedTime,
+                  });
+                  if (error) {
                     setSubmitting(false);
-                    (e.target as HTMLFormElement).reset();
-                    setSelectedTime(null);
-                    toast.success("Booking request received", {
-                      description: `${parsed.data.name} · ${parsed.data.service} · Day ${selectedDay} at ${selectedTime}. We'll confirm via ${parsed.data.phone}.`,
-                    });
-                  }, 400);
+                    toast.error("Could not save your booking", { description: error.message });
+                    return;
+                  }
+                  const key = slotKey(selectedDay, selectedTime);
+                  const next = { ...bookedSlots, [key]: true as const };
+                  setBookedSlots(next);
+                  try {
+                    localStorage.setItem(BOOKINGS_KEY, JSON.stringify(next));
+                  } catch {
+                    // storage unavailable — booking still tracked in-session
+                  }
+                  setSubmitting(false);
+                  form.reset();
+                  setSelectedTime(null);
+                  toast.success("Booking confirmed", {
+                    description: `${parsed.data.name} · ${parsed.data.service} · ${bookingDate} at ${selectedTime}. We'll be in touch on ${parsed.data.phone}.`,
+                  });
                 }}
               >
+
                 <div>
                   <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Select Date
