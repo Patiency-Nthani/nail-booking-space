@@ -166,7 +166,10 @@ function Index() {
       )}
       <nav className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <span className="font-serif text-xl font-semibold tracking-tight">PTheNailTech</span>
+          <div className="flex flex-col leading-tight">
+            <span className="font-serif text-xl font-semibold tracking-tight">Luxe by Patience</span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">by PTheNailTech</span>
+          </div>
           <div className="flex items-center gap-8">
             <button onClick={() => scrollTo("services")} className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline">
               Services
