@@ -306,7 +306,7 @@ function Index() {
                   Modern precision for the discerning hand.
                 </h2>
                 <p className="mt-8 max-w-[48ch] text-pretty text-lg leading-relaxed text-white/70">
-                  PTheNailTech's Space is an appointment-only studio dedicated to the intersection of health and high-end
+                  Luxe by Patience is an appointment-only studio by PTheNailTech, dedicated to the intersection of health and high-end
                   design. Your nails are the ultimate accessory — an expression of personal style that deserves meticulous
                   care and premium products.
                 </p>
