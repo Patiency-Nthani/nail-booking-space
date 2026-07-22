@@ -387,6 +387,20 @@ function Index() {
                   toast.success("Booking confirmed", {
                     description: `${parsed.data.name} · ${parsed.data.service} · ${bookingDate} at ${selectedTime}. We'll be in touch on ${parsed.data.phone}.`,
                   });
+                  try {
+                    await sendBookingEmail({
+                      data: {
+                        name: parsed.data.name,
+                        email: parsed.data.email,
+                        phone: parsed.data.phone,
+                        service: parsed.data.service,
+                        bookingDate,
+                        bookingTime: selectedTime,
+                      },
+                    });
+                  } catch (err) {
+                    console.error("Failed to send booking notification email", err);
+                  }
                 }}
               >
 
