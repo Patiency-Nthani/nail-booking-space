@@ -15,13 +15,13 @@ const aboutTech = "/images/about-tech.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PTheNailTech's Space — Editorial Nail Studio" },
+      { title: "Luxe by Patience — Editorial Nail Studio by PTheNailTech" },
       {
         name: "description",
         content:
-          "Appointment-only nail studio specializing in structured gel manicures, Gel-X extensions, and custom chrome art. Book your session at PTheNailTech's Space.",
+          "Luxe by Patience — an appointment-only nail studio by PTheNailTech specializing in structured gel manicures, Gel-X extensions, and custom chrome art.",
       },
-      { property: "og:title", content: "PTheNailTech's Space" },
+      { property: "og:title", content: "Luxe by Patience" },
       { property: "og:description", content: "Editorial nail studio. Structured gel, Gel-X, custom art. Book online." },
       { property: "og:image", content: gallery1 },
       { name: "twitter:card", content: "summary_large_image" },
