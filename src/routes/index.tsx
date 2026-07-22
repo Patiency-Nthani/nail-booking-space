@@ -15,13 +15,13 @@ const aboutTech = "/images/about-tech.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "PTheNailTech's Space — Editorial Nail Studio" },
+      { title: "Luxe by Patience — Editorial Nail Studio by PTheNailTech" },
       {
         name: "description",
         content:
-          "Appointment-only nail studio specializing in structured gel manicures, Gel-X extensions, and custom chrome art. Book your session at PTheNailTech's Space.",
+          "Luxe by Patience — an appointment-only nail studio by PTheNailTech specializing in structured gel manicures, Gel-X extensions, and custom chrome art.",
       },
-      { property: "og:title", content: "PTheNailTech's Space" },
+      { property: "og:title", content: "Luxe by Patience" },
       { property: "og:description", content: "Editorial nail studio. Structured gel, Gel-X, custom art. Book online." },
       { property: "og:image", content: gallery1 },
       { name: "twitter:card", content: "summary_large_image" },
@@ -166,7 +166,10 @@ function Index() {
       )}
       <nav className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-          <span className="font-serif text-xl font-semibold tracking-tight">PTheNailTech</span>
+          <div className="flex flex-col leading-tight">
+            <span className="font-serif text-xl font-semibold tracking-tight">Luxe by Patience</span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-muted-foreground">by PTheNailTech</span>
+          </div>
           <div className="flex items-center gap-8">
             <button onClick={() => scrollTo("services")} className="hidden text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:inline">
               Services
@@ -303,7 +306,7 @@ function Index() {
                   Modern precision for the discerning hand.
                 </h2>
                 <p className="mt-8 max-w-[48ch] text-pretty text-lg leading-relaxed text-white/70">
-                  PTheNailTech's Space is an appointment-only studio dedicated to the intersection of health and high-end
+                  Luxe by Patience is an appointment-only studio by PTheNailTech, dedicated to the intersection of health and high-end
                   design. Your nails are the ultimate accessory — an expression of personal style that deserves meticulous
                   care and premium products.
                 </p>
@@ -551,7 +554,8 @@ function Index() {
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
             <div className="text-center md:text-left">
-              <p className="font-serif text-lg font-medium">PTheNailTech's Space</p>
+              <p className="font-serif text-lg font-medium">Luxe by Patience</p>
+              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-muted-foreground">by PTheNailTech</p>
               <p className="mt-2 text-sm text-muted-foreground">Private Studio · Lusaka, Zambia</p>
             </div>
             <div className="flex gap-12">
