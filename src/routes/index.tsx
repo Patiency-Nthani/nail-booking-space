@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { sendBookingEmail } from "@/lib/send-booking-email.functions";
 
 
 const gallery1 = "/images/gallery-1.jpg";
