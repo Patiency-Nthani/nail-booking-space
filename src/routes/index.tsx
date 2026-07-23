@@ -363,6 +363,10 @@ function Index() {
                   const bookingDate = new Date(now.getFullYear(), now.getMonth(), selectedDay)
                     .toISOString()
                     .slice(0, 10);
+                  const confirmationToken =
+                    typeof crypto !== "undefined" && "randomUUID" in crypto
+                      ? crypto.randomUUID()
+                      : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
                   const { error } = await supabase.from("bookings").insert({
                     customer_name: parsed.data.name,
                     customer_email: parsed.data.email,
@@ -370,6 +374,8 @@ function Index() {
                     service: parsed.data.service,
                     booking_date: bookingDate,
                     booking_time: selectedTime,
+                    confirmation_token: confirmationToken,
+                    status: "pending",
                   });
                   if (error) {
                     setSubmitting(false);
@@ -387,8 +393,8 @@ function Index() {
                   setSubmitting(false);
                   form.reset();
                   setSelectedTime(null);
-                  toast.success("Booking confirmed", {
-                    description: `${parsed.data.name} · ${parsed.data.service} · ${bookingDate} at ${selectedTime}. We'll be in touch on ${parsed.data.phone}.`,
+                  toast.success("Booking request received", {
+                    description: `We'll email you a confirmation once Patience approves your ${parsed.data.service} on ${bookingDate} at ${selectedTime}.`,
                   });
                   try {
                     await sendBookingEmail({
@@ -399,6 +405,8 @@ function Index() {
                         service: parsed.data.service,
                         bookingDate,
                         bookingTime: selectedTime,
+                        confirmationToken,
+                        siteOrigin: window.location.origin,
                       },
                     });
                   } catch (err) {
