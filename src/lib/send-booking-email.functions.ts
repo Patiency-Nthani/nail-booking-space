@@ -26,7 +26,7 @@ export const sendBookingEmail = createServerFn({ method: "POST" })
     const html = `
       <div style="font-family: Arial, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #111;">
         <h2 style="margin: 0 0 16px;">New Appointment Booking</h2>
-        <p style="margin: 0 0 16px; color: #555;">A new booking was submitted on PTheNailTech's Space.</p>
+        <p style="margin: 0 0 16px; color: #555;">A new booking was submitted on Luxe by Patience.</p>
         <table style="width: 100%; border-collapse: collapse;">
           <tr><td style="padding: 8px 0; color: #888;">Name</td><td style="padding: 8px 0;"><strong>${data.name}</strong></td></tr>
           <tr><td style="padding: 8px 0; color: #888;">Email</td><td style="padding: 8px 0;">${data.email}</td></tr>
@@ -46,7 +46,7 @@ export const sendBookingEmail = createServerFn({ method: "POST" })
         "X-Connection-Api-Key": RESEND_API_KEY,
       },
       body: JSON.stringify({
-        from: "PTheNailTech <onboarding@resend.dev>",
+        from: "Luxe by Patience <onboarding@resend.dev>",
         to: [NOTIFY_TO],
         reply_to: data.email,
         subject,
