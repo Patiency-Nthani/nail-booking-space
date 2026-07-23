@@ -8,6 +8,8 @@ const inputSchema = z.object({
   service: z.string().min(1),
   bookingDate: z.string().min(1),
   bookingTime: z.string().min(1),
+  confirmationToken: z.string().uuid(),
+  siteOrigin: z.string().url(),
 });
 
 const NOTIFY_TO = "patiencenthani936@gmail.com";
@@ -22,12 +24,16 @@ export const sendBookingEmail = createServerFn({ method: "POST" })
       return { ok: false as const, error: "email_not_configured" };
     }
 
-    const subject = `New Booking: ${data.name} — ${data.service}`;
+    const confirmUrl = `${data.siteOrigin}/api/public/confirm-booking?token=${encodeURIComponent(
+      data.confirmationToken,
+    )}`;
+
+    const subject = `Confirm Booking: ${data.name} — ${data.service}`;
     const html = `
       <div style="font-family: Arial, sans-serif; max-width: 560px; margin: 0 auto; padding: 24px; color: #111;">
-        <h2 style="margin: 0 0 16px;">New Appointment Booking</h2>
-        <p style="margin: 0 0 16px; color: #555;">A new booking was submitted on Luxe by Patience.</p>
-        <table style="width: 100%; border-collapse: collapse;">
+        <h2 style="margin: 0 0 8px;">New Appointment Request</h2>
+        <p style="margin: 0 0 20px; color: #555;">A new booking is pending your confirmation on Luxe by Patience. The appointment is only finalized once you tap the button below.</p>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
           <tr><td style="padding: 8px 0; color: #888;">Name</td><td style="padding: 8px 0;"><strong>${data.name}</strong></td></tr>
           <tr><td style="padding: 8px 0; color: #888;">Email</td><td style="padding: 8px 0;">${data.email}</td></tr>
           <tr><td style="padding: 8px 0; color: #888;">Phone</td><td style="padding: 8px 0;">${data.phone}</td></tr>
@@ -35,6 +41,10 @@ export const sendBookingEmail = createServerFn({ method: "POST" })
           <tr><td style="padding: 8px 0; color: #888;">Date</td><td style="padding: 8px 0;">${data.bookingDate}</td></tr>
           <tr><td style="padding: 8px 0; color: #888;">Time</td><td style="padding: 8px 0;">${data.bookingTime}</td></tr>
         </table>
+        <p style="text-align: center; margin: 24px 0;">
+          <a href="${confirmUrl}" style="display: inline-block; background: #c2185b; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 999px; font-weight: 600;">Confirm this booking</a>
+        </p>
+        <p style="font-size: 12px; color: #888; margin-top: 24px;">Once confirmed, ${data.name} will automatically receive a confirmation email.</p>
       </div>
     `;
 
