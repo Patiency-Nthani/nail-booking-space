@@ -46,7 +46,7 @@ export const sendBookingEmail = createServerFn({ method: "POST" })
         "X-Connection-Api-Key": RESEND_API_KEY,
       },
       body: JSON.stringify({
-        from: "PTheNailTech <onboarding@resend.dev>",
+        from: "Luxe by Patience <onboarding@resend.dev>",
         to: [NOTIFY_TO],
         reply_to: data.email,
         subject,
