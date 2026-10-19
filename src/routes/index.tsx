@@ -4,6 +4,7 @@ import { z } from "zod";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { sendBookingEmail } from "@/lib/send-booking-email.functions";
+import { Calendar } from "@/components/ui/calendar";
 
 
 const gallery1 = "/images/gallery-1.jpg";
@@ -91,28 +92,53 @@ const gallery = [
   { src: gallery4, label: "Gold Inlay" },
 ];
 
-const days = [
-  { d: 14, day: "S" },
-  { d: 15, day: "M" },
-  { d: 16, day: "T" },
-  { d: 17, day: "W" },
-  { d: 18, day: "T" },
-  { d: 19, day: "F" },
-  { d: 20, day: "S" },
-];
 const times = ["08:00", "10:30", "14:00", "17:30"];
 
-const BOOKINGS_KEY = "pthenailtech.bookings.v1";
+// How far ahead customers may book, in whole months.
+const MONTHS_AHEAD = 12;
+
+const BOOKINGS_KEY = "pthenailtech.bookings.v2";
+
+// Slots are keyed by the full date so the same day number in a different month
+// (e.g. 15 November vs 15 December) never clashes.
+const toKey = (d: Date) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
+    d.getDate(),
+  ).padStart(2, "0")}`;
+
+const longDate = (d: Date) =>
+  d.toLocaleDateString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
 
 function Index() {
-  const [selectedDay, setSelectedDay] = useState(15);
+  const [mounted, setMounted] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [bookedSlots, setBookedSlots] = useState<Record<string, true>>({});
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [viewMonth, setViewMonth] = useState(() => {
+    const n = new Date();
+    return new Date(n.getFullYear(), n.getMonth(), 1);
+  });
+
+  // Today is the earliest bookable day; the calendar stays open MONTHS_AHEAD out.
+  const today = (() => {
+    const n = new Date();
+    n.setHours(0, 0, 0, 0);
+    return n;
+  })();
+  const startMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  const endMonth = new Date(today.getFullYear(), today.getMonth() + MONTHS_AHEAD, 1);
+  const lastBookable = new Date(today.getFullYear(), today.getMonth() + MONTHS_AHEAD + 1, 0);
 
   // Load existing bookings from localStorage (client-only to avoid SSR mismatch)
   useEffect(() => {
+    setMounted(true);
     try {
       const raw = localStorage.getItem(BOOKINGS_KEY);
       if (raw) setBookedSlots(JSON.parse(raw));
@@ -121,8 +147,8 @@ function Index() {
     }
   }, []);
 
-  const slotKey = (day: number, time: string) => `${day}|${time}`;
-  const isBooked = (day: number, time: string) => Boolean(bookedSlots[slotKey(day, time)]);
+  const slotKey = (date: Date, time: string) => `${toKey(date)}|${time}`;
+  const isBooked = (date: Date, time: string) => Boolean(bookedSlots[slotKey(date, time)]);
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -347,11 +373,15 @@ function Index() {
                     toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
                     return;
                   }
+                  if (!selectedDate) {
+                    toast.error("Please choose a date");
+                    return;
+                  }
                   if (!selectedTime) {
                     toast.error("Please choose a preferred time");
                     return;
                   }
-                  if (isBooked(selectedDay, selectedTime)) {
+                  if (isBooked(selectedDate, selectedTime)) {
                     toast.error("That slot was just booked", {
                       description: "Please pick another available time.",
                     });
@@ -359,10 +389,7 @@ function Index() {
                     return;
                   }
                   setSubmitting(true);
-                  const now = new Date();
-                  const bookingDate = new Date(now.getFullYear(), now.getMonth(), selectedDay)
-                    .toISOString()
-                    .slice(0, 10);
+                  const bookingDate = toKey(selectedDate);
                   const confirmationToken =
                     typeof crypto !== "undefined" && "randomUUID" in crypto
                       ? crypto.randomUUID()
@@ -382,7 +409,7 @@ function Index() {
                     toast.error("Could not save your booking", { description: error.message });
                     return;
                   }
-                  const key = slotKey(selectedDay, selectedTime);
+                  const key = slotKey(selectedDate, selectedTime);
                   const next = { ...bookedSlots, [key]: true as const };
                   setBookedSlots(next);
                   try {
@@ -394,7 +421,7 @@ function Index() {
                   form.reset();
                   setSelectedTime(null);
                   toast.success("Booking request received", {
-                    description: `We'll email you a confirmation once Patience approves your ${parsed.data.service} on ${bookingDate} at ${selectedTime}.`,
+                    description: `We'll email you a confirmation once Patience approves your ${parsed.data.service} on ${longDate(selectedDate)} at ${selectedTime}.`,
                   });
                   try {
                     await sendBookingEmail({
@@ -403,7 +430,7 @@ function Index() {
                         email: parsed.data.email,
                         phone: parsed.data.phone,
                         service: parsed.data.service,
-                        bookingDate,
+                        bookingDate: longDate(selectedDate),
                         bookingTime: selectedTime,
                         confirmationToken,
                         siteOrigin: window.location.origin,
@@ -419,27 +446,41 @@ function Index() {
                   <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Select Date
                   </label>
-                  <div className="mt-4 grid grid-cols-7 gap-2">
-                    {days.map((d) => (
-                      <div key={d.d} className="flex flex-col items-center gap-2">
-                        <span className="text-xs font-medium text-muted-foreground/60">{d.day}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedDay(d.d);
-                            setSelectedTime(null);
-                          }}
-                          className={`flex aspect-square w-full items-center justify-center rounded-md text-sm font-medium transition-colors ${
-                            selectedDay === d.d
-                              ? "bg-primary text-primary-foreground"
-                              : "hover:bg-secondary"
-                          }`}
-                        >
-                          {d.d}
-                        </button>
-                      </div>
-                    ))}
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    Choose any day, in any month — use the arrows or the month and year menus to
+                    move ahead, for example to November.
+                  </p>
+                  <div className="mt-4 overflow-hidden rounded-lg ring-1 ring-border">
+                    {mounted ? (
+                      <Calendar
+                        mode="single"
+                        month={viewMonth}
+                        onMonthChange={setViewMonth}
+                        selected={selectedDate ?? undefined}
+                        onSelect={(d) => {
+                          if (!d) return;
+                          setSelectedDate(d);
+                          setSelectedTime(null);
+                        }}
+                        startMonth={startMonth}
+                        endMonth={endMonth}
+                        disabled={[{ before: today }, { after: lastBookable }]}
+                        captionLayout="dropdown"
+                        fixedWeeks
+                        className="w-full"
+                      />
+                    ) : (
+                      <div className="h-80" />
+                    )}
                   </div>
+                  {selectedDate && (
+                    <p className="mt-3 text-sm">
+                      You are booking for{" "}
+                      <span className="font-semibold text-primary">
+                        {longDate(selectedDate)}
+                      </span>
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -448,7 +489,7 @@ function Index() {
                   </label>
                   <div className="mt-4 grid grid-cols-3 gap-3">
                     {times.map((t) => {
-                      const booked = isBooked(selectedDay, t);
+                      const booked = selectedDate ? isBooked(selectedDate, t) : false;
                       const selected = selectedTime === t;
                       return (
                         <button
@@ -476,9 +517,9 @@ function Index() {
                       );
                     })}
                   </div>
-                  {times.every((t) => isBooked(selectedDay, t)) ? (
+                  {selectedDate && times.every((t) => isBooked(selectedDate, t)) ? (
                     <p className="mt-3 text-xs text-destructive">
-                      All times for day {selectedDay} are booked. Please pick another date.
+                      All times on {longDate(selectedDate)} are booked. Please pick another date.
                     </p>
                   ) : (
                     <p className="mt-3 text-xs text-muted-foreground">
