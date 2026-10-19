@@ -446,27 +446,41 @@ function Index() {
                   <label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                     Select Date
                   </label>
-                  <div className="mt-4 grid grid-cols-7 gap-2">
-                    {days.map((d) => (
-                      <div key={d.d} className="flex flex-col items-center gap-2">
-                        <span className="text-xs font-medium text-muted-foreground/60">{d.day}</span>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setSelectedDay(d.d);
-                            setSelectedTime(null);
-                          }}
-                          className={`flex aspect-square w-full items-center justify-center rounded-md text-sm font-medium transition-colors ${
-                            selectedDay === d.d
-                              ? "bg-primary text-primary-foreground"
-                              : "hover:bg-secondary"
-                          }`}
-                        >
-                          {d.d}
-                        </button>
-                      </div>
-                    ))}
+                  <p className="mt-2 text-xs text-muted-foreground">
+                    Choose any day, in any month — use the arrows or the month and year menus to
+                    move ahead, for example to November.
+                  </p>
+                  <div className="mt-4 overflow-hidden rounded-lg ring-1 ring-border">
+                    {mounted ? (
+                      <Calendar
+                        mode="single"
+                        month={viewMonth}
+                        onMonthChange={setViewMonth}
+                        selected={selectedDate ?? undefined}
+                        onSelect={(d) => {
+                          if (!d) return;
+                          setSelectedDate(d);
+                          setSelectedTime(null);
+                        }}
+                        startMonth={startMonth}
+                        endMonth={endMonth}
+                        disabled={[{ before: today }, { after: lastBookable }]}
+                        captionLayout="dropdown"
+                        fixedWeeks
+                        className="w-full"
+                      />
+                    ) : (
+                      <div className="h-80" />
+                    )}
                   </div>
+                  {selectedDate && (
+                    <p className="mt-3 text-sm">
+                      You are booking for{" "}
+                      <span className="font-semibold text-primary">
+                        {longDate(selectedDate)}
+                      </span>
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -475,7 +489,7 @@ function Index() {
                   </label>
                   <div className="mt-4 grid grid-cols-3 gap-3">
                     {times.map((t) => {
-                      const booked = isBooked(selectedDay, t);
+                      const booked = selectedDate ? isBooked(selectedDate, t) : false;
                       const selected = selectedTime === t;
                       return (
                         <button
@@ -503,9 +517,9 @@ function Index() {
                       );
                     })}
                   </div>
-                  {times.every((t) => isBooked(selectedDay, t)) ? (
+                  {selectedDate && times.every((t) => isBooked(selectedDate, t)) ? (
                     <p className="mt-3 text-xs text-destructive">
-                      All times for day {selectedDay} are booked. Please pick another date.
+                      All times on {longDate(selectedDate)} are booked. Please pick another date.
                     </p>
                   ) : (
                     <p className="mt-3 text-xs text-muted-foreground">
