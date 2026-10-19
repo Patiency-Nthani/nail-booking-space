@@ -15,7 +15,7 @@ const inputSchema = z.object({
 const NOTIFY_TO = "patiencenthani936@gmail.com";
 
 export const sendBookingEmail = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => inputSchema.parse(data))
+  .validator((data: unknown) => inputSchema.parse(data))
   .handler(async ({ data }) => {
     const LOVABLE_API_KEY = process.env.LOVABLE_API_KEY;
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
