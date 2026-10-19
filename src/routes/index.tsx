@@ -569,8 +569,8 @@ function Index() {
             <div className="flex gap-12">
             <div className="flex flex-col gap-2">
                 <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Contact</span>
-                <a href="mailto:hello@pthenailtech.space" className="text-sm font-medium">
-                  hello@pthenailtech.space
+                <a href="mailto:patiencenthani936@gmail.com" className="text-sm font-medium">
+                  patiencenthani936@gmail.com
                 </a>
                 <a href="tel:+260779109199" className="text-sm font-medium">
                   +260 779 109 199
