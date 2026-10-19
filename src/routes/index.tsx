@@ -497,7 +497,6 @@ function Index() {
                       name="name"
                       required
                       className="h-11 w-full rounded-md bg-background px-3 text-sm ring-1 ring-border outline-none transition-colors focus:ring-foreground"
-                      placeholder="Jane Doe"
                     />
                   </div>
                   <div className="space-y-2">
@@ -510,7 +509,6 @@ function Index() {
                       type="tel"
                       required
                       className="h-11 w-full rounded-md bg-background px-3 text-sm ring-1 ring-border outline-none transition-colors focus:ring-foreground"
-                      placeholder="+260 779 109 199"
                     />
                   </div>
                 </div>
@@ -525,7 +523,6 @@ function Index() {
                     type="email"
                     required
                     className="h-11 w-full rounded-md bg-background px-3 text-sm ring-1 ring-border outline-none transition-colors focus:ring-foreground"
-                    placeholder="jane@example.com"
                   />
                 </div>
 
